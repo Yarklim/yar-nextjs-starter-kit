@@ -432,6 +432,11 @@ export default defineConfig([
     'build/**',
     'dist/**',
     'coverage/**',
+
+    // Test artifacts
+    'playwright-report/**',
+    'test-results/**',
+
     'next-env.d.ts',
 
     /**
