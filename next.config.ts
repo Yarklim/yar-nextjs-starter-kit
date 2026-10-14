@@ -1,68 +1,60 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
-const isProd: boolean = process.env.NODE_ENV === 'production';
-const imageStorageUrl: string | undefined = process.env.IMAGE_STORAGE_URL;
-const imageStorageHost: string | undefined = process.env.IMAGE_STORAGE_HOST;
-const imageStoragePath: string | undefined = process.env.IMAGE_STORAGE_PATH;
-const isPermissionCamera: boolean = process.env.PERMISSION_CAMERA !== 'false';
-const isPermissionMicrophone: boolean =
-  process.env.PERMISSION_MICROPHONE !== 'false';
-const isPermissionGeolocation: boolean =
-  process.env.PERMISSION_GEOLOCATION !== 'false';
-const isPermissionPayment: boolean = process.env.PERMISSION_PAYMENT !== 'false';
-const isPermissionUsb: boolean = process.env.PERMISSION_USB !== 'false';
-const isPermissionInterest: boolean =
-  process.env.PERMISSION_INTEREST !== 'false';
+const isDev = process.env.NODE_ENV === 'development';
+const isProd = process.env.NODE_ENV === 'production';
 
-const styleSrc = "style-src 'self' 'unsafe-inline'";
+const imageStorageUrl = process.env.IMAGE_STORAGE_URL;
+const imageStorageHost = process.env.IMAGE_STORAGE_HOST;
+const imageStoragePath = process.env.IMAGE_STORAGE_PATH;
 
-const scriptSrc = isProd
-  ? styleSrc
-  : "script-src 'self' 'unsafe-inline' 'unsafe-eval'";
+const permissionsPolicy = [
+  `camera=${process.env.PERMISSION_CAMERA === 'true' ? '(self)' : '()'}`,
+  `microphone=${process.env.PERMISSION_MICROPHONE === 'true' ? '(self)' : '()'}`,
+  `geolocation=${process.env.PERMISSION_GEOLOCATION === 'true' ? '(self)' : '()'}`,
+  `payment=${process.env.PERMISSION_PAYMENT === 'true' ? '(self)' : '()'}`,
+  `usb=${process.env.PERMISSION_USB === 'true' ? '(self)' : '()'}`,
+].join(', ');
 
-const scriptImage = imageStorageUrl
-  ? `img-src 'self' ${imageStorageUrl} data: blob:`
-  : '';
+const imageStorageOrigin =
+  imageStorageUrl !== undefined ? new URL(imageStorageUrl).origin : undefined;
 
-// CSP v0: fairly strict, but without breaking things.
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'none'",
   "form-action 'self'",
-  // Scripts/styles
-  scriptSrc,
-  styleSrc,
-  // Images: allow 'self' + cloud image storage + data: (required for inline/placeholder/icons)
-  scriptImage,
-  // Fonts: if they are local-only, I leave them as `self`.
-  "font-src 'self' data:",
-  // XHR/fetch: if forms are submitted to the same domain/API, `self` is sufficient.
+
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+  "style-src 'self' 'unsafe-inline'",
+
+  `img-src 'self' data: blob:${imageStorageOrigin ? ` ${imageStorageOrigin}` : ''}`,
+  "font-src 'self'",
   "connect-src 'self'",
-  // next/image with optimization via Vercel
   "media-src 'self'",
+
   ...(isProd ? ['upgrade-insecure-requests'] : []),
 ].join('; ');
 
-const securityHeaders: { key: string; value: string }[] = [
-  // Basic
-  { key: 'X-Content-Type-Options', value: 'nosniff' },
-  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-  // It is recommended to enable this, even if authorization is not required.
-  { key: 'X-Frame-Options', value: 'DENY' }, // duplicates frame-ancestors, but is useful for older UAs
-  // Permissions-Policy: disabling everything unnecessary
+const securityHeaders: Array<{ key: string; value: string }> = [
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'DENY',
+  },
   {
     key: 'Permissions-Policy',
-    value: `${isPermissionCamera && 'camera=()'}, ${isPermissionMicrophone && 'microphone=()'}, ${isPermissionGeolocation && 'geolocation=()'}, ${isPermissionPayment && 'payment=()'}, ${isPermissionUsb && 'usb=()'}, ${isPermissionInterest && 'interest-cohort=()'}`,
+    value: permissionsPolicy,
   },
-  // Cross-origin policies – soft launch (non-breaking)
-  { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-  { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
 
-  // HSTS: I enable it only in production
-  // (If there are subdomains that are NOT on HTTPS, do NOT set includeSubDomains/preload)
   ...(isProd
     ? [
         {
@@ -72,13 +64,19 @@ const securityHeaders: { key: string; value: string }[] = [
       ]
     : []),
 
-  { key: 'Content-Security-Policy', value: csp },
+  {
+    key: 'Content-Security-Policy',
+    value: csp,
+  },
 ];
 
-const nextConfig: NextConfig = {
+const nextConfig = {
+  poweredByHeader: false,
+
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+
   turbopack: {
     rules: {
       '*.css': {
@@ -87,10 +85,6 @@ const nextConfig: NextConfig = {
       },
     },
   },
-
-  // Disabling streaming metadata
-  // so that metadata is always rendered in the <head> and cannot end up in the <body>.
-  htmlLimitedBots: /.*/,
 
   async headers() {
     return [
@@ -111,17 +105,16 @@ const nextConfig: NextConfig = {
             hostname: imageStorageHost,
             port: '',
             pathname: imageStoragePath,
-            // Saved URLs contain ?_a=…; we do not restrict search so that they continue to work.
           },
         ],
-        deviceSizes: [320, 560, 768, 1280, 1440],
-        imageSizes: [64, 96, 128, 256, 384, 500, 700],
-        formats: ['image/webp', 'image/avif'],
-        minimumCacheTTL: 60 * 60 * 24 * 31,
-        contentDispositionType: 'inline',
+
+        // Remote image storage should normally return the image directly.
+        // Redirect destinations are not revalidated against remotePatterns.
+        maximumRedirects: 0,
       },
     }),
-};
+} satisfies NextConfig;
 
 const withNextIntl = createNextIntlPlugin('./src/shared/lib/i18n/request.ts');
+
 export default withNextIntl(nextConfig);
