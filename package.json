@@ -12,7 +12,10 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:forms": "vitest run tests/forms"
   },
   "dependencies": {
     "clsx": "^2.1.1",
