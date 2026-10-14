@@ -4,4 +4,5 @@ export const MESSAGE_FILES = {
   NAVIGATION: 'navigation',
   FORMS: 'forms',
   FOOTER: 'footer',
+  HOME_PAGE: 'homePage',
 } as const;

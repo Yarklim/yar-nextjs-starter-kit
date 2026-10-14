@@ -20,6 +20,9 @@ async function getMessages(locale: Locale) {
     ...(await import(`./messages/${locale}/${MESSAGE_FILES.FORMS}.json`))
       .default,
 
+    ...(await import(`./messages/${locale}/${MESSAGE_FILES.HOME_PAGE}.json`))
+      .default,
+
     ...(await import(`./messages/${locale}/${MESSAGE_FILES.NAVIGATION}.json`))
       .default,
   };
