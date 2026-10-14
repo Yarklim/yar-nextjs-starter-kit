@@ -1,0 +1,26 @@
+{
+  "Navigation": {
+    "nav_about": "Про нас",
+    "nav_about_aria": "На сторінку Про нас",
+    "nav_projects": "Проєкти",
+    "nav_projects_aria": "На сторінку Проєкти",
+    "nav_activities": "Діяльність",
+    "nav_activities_aria": "Відкрити список Діяльність",
+    "nav_services": "Послуги",
+    "nav_services_aria": "На сторінку Послуги",
+    "nav_schedule": "Розклад",
+    "nav_schedule_aria": "На сторінку Розклад",
+    "nav_news": "Новини",
+    "nav_news_aria": "На сторінку Новини",
+    "nav_reports": "Звіти",
+    "nav_reports_aria": "На сторінку Звіти",
+    "nav_team": "Команда",
+    "nav_team_aria": "На сторінку Команда",
+    "nav_partners": "Партнери",
+    "nav_partners_aria": "На сторінку Партнери",
+    "nav_questions": "Запитання",
+    "nav_questions_aria": "На сторінку Запитання",
+    "nav_contacts": "Контакти",
+    "nav_contacts_aria": "До секції Контакти"
+  }
+}

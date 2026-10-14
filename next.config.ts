@@ -4,9 +4,15 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = process.env.NODE_ENV === 'production';
 
-const imageStorageUrl = process.env.IMAGE_STORAGE_URL;
-const imageStorageHost = process.env.IMAGE_STORAGE_HOST;
-const imageStoragePath = process.env.IMAGE_STORAGE_PATH;
+const imageStorageUrl = process.env.IMAGE_STORAGE_URL?.trim() || undefined;
+
+const imageStorageHost = process.env.IMAGE_STORAGE_HOST?.trim() || undefined;
+
+const imageStoragePath = process.env.IMAGE_STORAGE_PATH?.trim() || undefined;
+
+const imageStorageOrigin = imageStorageUrl
+  ? new URL(imageStorageUrl).origin
+  : undefined;
 
 const permissionsPolicy = [
   `camera=${process.env.PERMISSION_CAMERA === 'true' ? '(self)' : '()'}`,
@@ -15,9 +21,6 @@ const permissionsPolicy = [
   `payment=${process.env.PERMISSION_PAYMENT === 'true' ? '(self)' : '()'}`,
   `usb=${process.env.PERMISSION_USB === 'true' ? '(self)' : '()'}`,
 ].join(', ');
-
-const imageStorageOrigin =
-  imageStorageUrl !== undefined ? new URL(imageStorageUrl).origin : undefined;
 
 const csp = [
   "default-src 'self'",
@@ -115,6 +118,6 @@ const nextConfig = {
     }),
 } satisfies NextConfig;
 
-const withNextIntl = createNextIntlPlugin('./src/shared/lib/i18n/request.ts');
+const withNextIntl = createNextIntlPlugin('./src/shared/i18n/request.ts');
 
 export default withNextIntl(nextConfig);

@@ -1,0 +1,101 @@
+{
+  "Logo": {
+    "logo_name": "Psychability",
+    "logo_alt": "Psychability logo",
+    "logo_aria": "To the About us page"
+  },
+  "Buttons": {
+    "joinButton_text": "JOIN US",
+    "joinButton_aria": "open the registration form",
+    "askButton_text": "ASK A QUESTION",
+    "askButton_aria": "open the form for the question",
+    "sendButton_text": "SEND",
+    "sendButton_aria": "send",
+    "retryButton_text": "TRY AGAIN",
+    "retryButton_aria": "retry sending",
+    "scheduleButton_text": "SCHEDULE",
+    "scheduleButton_aria": "open the schedule",
+    "backButton_title": "GO BACK",
+    "backButton_aria": "go back",
+    "linkButton_title": "REVIEW",
+    "linkButton_aria": "review",
+    "closeButton_text": "OK",
+    "closeButton_aria": "close modal window",
+    "share_btn_aria": "Share",
+    "share_copy_button_label": "Copy the link",
+    "share_copy_button_copied": "Copied"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "English",
+    "aria_choice_locale": "switch language"
+  },
+  "MobileMenu": {
+    "open_button_aria": "open mobile menu",
+    "close_button_aria": "close mobile menu",
+    "main_navigation_aria": "main navigation"
+  },
+  "Slider": {
+    "slider_button_prev": "Previous slide",
+    "slider_button_next": "Next slide"
+  },
+  "Query": {
+    "search_input_query_placeholder": "Search...",
+    "search_input_query_clear_aria": "Clear search",
+    "search_input_query_loading": "Loading...",
+    "search_input_query_aria": "Search...",
+    "pagination_prev_btn": "Previous page",
+    "pagination_label": "List pages",
+    "pagination_next_btn": "Next page",
+    "pagination_pageNum_btn": "To page number ",
+    "pagination_first_btn": "To the first page",
+    "pagination_last_btn": "To the last page"
+  },
+  "ArticleImages": {
+    "fallback": "Illustration for the article “{title}”, image {number}"
+  },
+  "NotFoundPage": {
+    "title": "Page not found",
+    "description": "This page is unavailable or its address has changed.",
+    "home": "Return home"
+  },
+  "ErrorPage": {
+    "title": "Unable to load the page",
+    "description": "Please try again in a few minutes.",
+    "retry": "Try again"
+  },
+  "Metadata": {
+    "site_title": "Psychability",
+    "site_description": "Psychability — a public organization uniting people with mental health challenges, their families, and professionals for support, rehabilitation and social inclusion in Kyiv.",
+
+    "home_title": "Support & Rehabilitation",
+    "home_description": "Psychability is a community offering support, rehabilitation, and resources for individuals with mental health conditions and their families in Kyiv.",
+
+    "privacy_policy_title": "Privacy Policy",
+    "privacy_policy_description": "How Psychability collects, uses and protects users’ personal data.",
+
+    "projects_title": "Projects",
+    "projects_description": "Explore Psychability’s projects: social initiatives, educational programs, and multidisciplinary approaches to rehabilitation and support.",
+
+    "services_title": "Services",
+    "services_description": "A list of services offered by Psychability: support groups, individual assistance, psychoeducation and other forms of social support.",
+
+    "schedule_title": "Schedule",
+    "schedule_description": "Upcoming events and session schedules from Psychability, including workshops, group activities, and community gatherings.",
+
+    "faq_title": "FAQ",
+    "faq_description": "Frequently asked questions about Psychability’s activities, participation, service formats, and community support.",
+
+    "news_title": "News",
+    "news_description": "Latest news, updates, announcements, and key messages from the Psychability organization.",
+
+    "partners_title": "Partners",
+    "partners_description": "Our partners: nonprofits, charities, medical and social institutions collaborating with Psychability.",
+
+    "reports_title": "Reports",
+    "reports_description": "Official reports and documentation about Psychability’s activities, impact summaries, and project outcomes.",
+
+    "team_title": "Team",
+    "team_description": "Meet the Psychability team: mental health professionals, volunteers, and advocates driving our mission forward."
+  }
+}

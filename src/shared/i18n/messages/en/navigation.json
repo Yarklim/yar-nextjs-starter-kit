@@ -1,0 +1,26 @@
+{
+  "Navigation": {
+    "nav_about": "About us",
+    "nav_about_aria": "To the About us page",
+    "nav_activities": "Activity",
+    "nav_activities_aria": "Open Activities list",
+    "nav_projects": "Projects",
+    "nav_projects_aria": "To the Projects page",
+    "nav_services": "Services",
+    "nav_services_aria": "To the Services page",
+    "nav_schedule": "Timetable",
+    "nav_schedule_aria": "To the Timetable page",
+    "nav_news": "News",
+    "nav_news_aria": "To the News page",
+    "nav_reports": "Reports",
+    "nav_reports_aria": "To the Reports page",
+    "nav_team": "Team",
+    "nav_team_aria": "To the Team page",
+    "nav_partners": "Partners",
+    "nav_partners_aria": "To the Partners page",
+    "nav_questions": "FAQ",
+    "nav_questions_aria": "To the FAQ page",
+    "nav_contacts": "Contacts",
+    "nav_contacts_aria": "To the Contacts section"
+  }
+}
