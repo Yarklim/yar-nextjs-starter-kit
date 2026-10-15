@@ -9,6 +9,13 @@ import { routing } from '@/shared/i18n';
 import '@styles/globals.css';
 import { getLocale, getTranslations } from 'next-intl/server';
 
+import {
+  FALLBACK_SITE_URL,
+  LOCALE_POSIX,
+  OG_DEFAULT_IMAGE,
+  OG_IMAGE_BY_LOCALE,
+} from '@/shared/seo';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin', 'cyrillic'],
@@ -22,20 +29,16 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const SITE_URL = process.env.SITE_URL
   ? process.env.SITE_URL.replace(/\/+$/, '')
-  : 'http://localhost:3000';
+  : FALLBACK_SITE_URL;
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations('Metadata');
+
   const siteName = t('site_title');
   const description = t('site_description');
 
-  const OG_BY_LOCALE: Record<string, string> = {
-    uk: '/og/og-uk.jpg',
-    en: '/og/og-en.jpg',
-  };
-
-  const ogImage = OG_BY_LOCALE[locale] ?? '/og/og-en.jpg';
+  const ogImage = OG_IMAGE_BY_LOCALE[locale] ?? OG_DEFAULT_IMAGE;
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -76,7 +79,7 @@ export async function generateMetadata(): Promise<Metadata> {
           alt: siteName,
         },
       ],
-      locale: locale === 'uk' ? 'uk_UA' : 'en_US',
+      locale: LOCALE_POSIX[locale],
     },
 
     twitter: {

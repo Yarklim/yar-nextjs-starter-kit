@@ -1,6 +1,6 @@
 import 'server-only';
 
-import type { Locale } from '../../../i18n/types/locale.type';
+import type { Locale } from '../../i18n/types/locale.type';
 
 const OG_BY_LOCALE: Record<Locale, string> = {
   uk: '/og/og-uk.jpg',
