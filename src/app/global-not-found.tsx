@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { routing } from '@/shared/i18n';
 
-import { NotFoundContent } from '@/shared/ui/info-content';
+import { NotFoundContent } from '@/views/notFoundContent';
 
 import '@styles/globals.css';
 
