@@ -1,4 +1,3 @@
-// src/shared/lib/seo/toSeoText.ts
 import 'server-only';
 
 type ToSeoTextOptions = {
@@ -23,10 +22,6 @@ export function toSeoText(input: unknown, opts: ToSeoTextOptions = {}): string {
   if (!s) {
     return fallback;
   }
-
-  // 1.1) Remove custom markers @@...@@ (anything inside, non-greedy)
-  // Supports multiple markers in one string.
-  s = s.replace(/@@[\s\S]*?@@/g, ' ');
 
   // 2) Decode common JSON-style escapes if they exist in "text form"
   s = tryDecodeJsonEscapes(s);
@@ -53,7 +48,7 @@ export function toSeoText(input: unknown, opts: ToSeoTextOptions = {}): string {
     return fallback;
   }
 
-  // 7) Optional: drop most emojis/symbols (if you want cleaner SERP)
+  // 7) Optional: drop most emojis/symbols
   if (!preserveEmoji) {
     s = s
       .replace(/[\p{Extended_Pictographic}]/gu, '')

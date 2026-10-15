@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typegen": "next typegen",
-    "typecheck": "next typegen && tsc --noEmit",
+    "typecheck": "pnpm clean:next-dev && next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:forms": "vitest run tests/forms"

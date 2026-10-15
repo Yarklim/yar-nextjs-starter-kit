@@ -45,18 +45,57 @@ const forbidLayers = (layers) =>
   layers.flatMap((layer) => [`@/${layer}/**`, `@${layer}/**`]);
 
 /**
- * Allow importing a slice/segment only through its public API.
+ * Enforce public APIs for FSD slices and Shared segments.
  *
- * Allowed:
- *   import { LoginForm } from '@/features/auth';
- *   import { Button } from '@/shared/ui';
+ * Sliced layers:
+ *   Allowed:
+ *     @/features/auth
+ *     @/entities/user
  *
- * Forbidden:
- *   import { LoginForm } from '@/features/auth/ui/LoginForm';
- *   import { Button } from '@/shared/ui/Button';
+ *   Forbidden:
+ *     @/features/auth/ui/LoginForm
+ *     @/entities/user/model/user
+ *
+ * Shared:
+ *   Most segments expose their public API from the segment root:
+ *     @/shared/i18n
+ *     @/shared/router
+ *
+ *   Shared UI is intentionally more granular so every UI component can
+ *   expose its own public API without creating one large shared/ui barrel:
+ *     @/shared/ui/button
+ *     @/shared/ui/dialog
+ *
+ *   Implementation details remain private:
+ *     @/shared/i18n/routing
+ *     @/shared/router/navigation
+ *     @/shared/ui/button/Button
+ *     @/shared/ui/dialog/DialogContent
  */
 const forbidDeepImports = (layers) =>
-  layers.flatMap((layer) => [`@/${layer}/*/**`, `@${layer}/*/**`]);
+  layers.flatMap((layer) => {
+    if (layer !== 'shared') {
+      return [`@/${layer}/*/**`, `@${layer}/*/**`];
+    }
+
+    return [
+      // Restrict deep imports into all Shared segments.
+      '@/shared/*/**',
+
+      // Re-allow component-level public APIs inside shared/ui.
+      '!@/shared/ui',
+      '!@/shared/ui/*',
+
+      // But keep implementation details of UI components private.
+      '@/shared/ui/*/**',
+
+      // Same rules for the legacy alias form.
+      '@shared/*/**',
+      '!@shared/ui',
+      '!@shared/ui/*',
+      '@shared/ui/*/**',
+    ];
+  });
 
 /**
  * Creates an ESLint no-restricted-imports rule for an FSD layer.

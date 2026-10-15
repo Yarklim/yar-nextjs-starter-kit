@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
-import { notFound } from 'next/navigation';
 
-import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { NextIntlClientProvider } from 'next-intl';
 
 import { routing } from '@/shared/i18n';
 
@@ -102,10 +101,6 @@ export default async function RootLayout({
   params,
 }: LayoutProps<'/[locale]'>) {
   const { locale } = await params;
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
 
   return (
     <html
