@@ -11,6 +11,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 import {
   FALLBACK_SITE_URL,
+  LOCALE_ALTERNATE,
   LOCALE_POSIX,
   OG_DEFAULT_IMAGE,
   OG_IMAGE_BY_LOCALE,
@@ -91,12 +92,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     alternates: {
       canonical: isProd ? `/${locale}` : undefined,
-      languages: isProd
-        ? {
-            uk: '/uk',
-            en: '/en',
-          }
-        : undefined,
+      languages: isProd ? LOCALE_ALTERNATE : undefined,
     },
   };
 }

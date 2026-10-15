@@ -27,7 +27,8 @@
   },
   "LocaleSwitcher": {
     "label": "Change language",
-    "locale": "English",
+    "locale_en": "English",
+    "locale_uk": "Українська",
     "aria_choice_locale": "switch language"
   },
   "MobileMenu": {
@@ -50,9 +51,6 @@
     "pagination_pageNum_btn": "To page number ",
     "pagination_first_btn": "To the first page",
     "pagination_last_btn": "To the last page"
-  },
-  "ArticleImages": {
-    "fallback": "Illustration for the article “{title}”, image {number}"
   },
   "NotFoundPage": {
     "title": "Page not found",

@@ -1,8 +1,8 @@
 {
   "Logo": {
-    "logo_name": "Психабіліті",
-    "logo_alt": "Психабіліті лого",
-    "logo_aria": "На сторінку Про нас"
+    "logo_name": "Nest.js стартовий пакет",
+    "logo_alt": "Nest.js стартовий пакет лого",
+    "logo_aria": "На Головну сторінку"
   },
   "Buttons": {
     "joinButton_text": "ПРИЄДНАТИСЬ",
@@ -27,7 +27,8 @@
   },
   "LocaleSwitcher": {
     "label": "Change language",
-    "locale": "Ukrainian",
+    "locale_en": "English",
+    "locale_uk": "Українська",
     "aria_choice_locale": "перемикання мови"
   },
   "MobileMenu": {
@@ -50,9 +51,6 @@
     "pagination_pageNum_btn": "На сторінку номер ",
     "pagination_first_btn": "На першу сторінку",
     "pagination_last_btn": "На останню сторінку"
-  },
-  "ArticleImages": {
-    "fallback": "Ілюстрація до статті «{title}», зображення {number}"
   },
   "NotFoundPage": {
     "title": "Сторінку не знайдено",
