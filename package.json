@@ -8,11 +8,13 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm clean:next-dev && next build",
+    "clean:next-dev": "node -e \"require('node:fs').rmSync('.next/dev', { recursive: true, force: true })\"",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit",
+    "typegen": "next typegen",
+    "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:forms": "vitest run tests/forms"
