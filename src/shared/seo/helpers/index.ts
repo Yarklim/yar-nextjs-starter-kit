@@ -1,0 +1,1 @@
+export { getRobotsMetadata } from './getRobotsMetadata';
